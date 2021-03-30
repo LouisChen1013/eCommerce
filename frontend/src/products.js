@@ -79,7 +79,7 @@ const products = [
   },
   {
     _id: "7",
-    name: "Amazon Basics Carry-On Travel Backpack ",
+    name: "Amazon Basics Carry-On Travel Backpack",
     image: "/images/backpack.jpg",
     description:
       "Meet Echo Dot - Our most popular smart speaker with a fabric design. It is our most compact smart speaker that fits perfectly into small space",

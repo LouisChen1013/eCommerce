@@ -1,0 +1,11 @@
+python:
+python3 -m venv myenv
+source myenv/bin/activate
+pip3 install django
+django-admin startproject backend
+python3 manage.py runserver
+django-admin startapp base / python3 manage.py startapp base
+pip3 install django-cors-headers # this allow us to connect our backend api to our frondend react https://pypi.org/project/django-cors-headers/
+python3 manage.py createsuperuser
+python3 manage.py makemigrations # run after we created our classes/schema (e.g., Product) in models
+pip3 install Pillow
