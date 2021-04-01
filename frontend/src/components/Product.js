@@ -7,7 +7,7 @@ const Product = ({ product }) => {
     <Card className="my-3 p-3 rounded">
       {/* we use Link instead of <a> tag to load a component. <a> tag will load a new page(e.g., page refresh) */}
       <Link to={`/product/${product._id}`}>
-        <Card.Img src={product.image} style={{ width: "" }} />
+        <Card.Img src={product.image} />
       </Link>
       <Card.Body>
         <Link to={`/product/${product._id}`}>
