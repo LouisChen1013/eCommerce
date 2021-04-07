@@ -11,15 +11,15 @@ import {
 } from "react-bootstrap";
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
-import Error from "../components/Error";
+import Message from "../components/Message";
 import { useSelector, useDispatch } from "react-redux";
 import { listProducDetails } from "../actions/productActions";
 
 // import products from "../products";
 // import axios from "axios";
 
-const ProductScreen = ({ match }) => {
-  // Route will pass match as props to the child component, we can access by checking console.log(props.match.params.id);
+const ProductScreen = ({ match, history }) => {
+  // Route will pass match/history/location as props to the child component, we can access by checking console.log(props.match.params.id);
   // const product = products.find((p) => p._id === match.params.id);
 
   /*
@@ -47,7 +47,8 @@ const ProductScreen = ({ match }) => {
   const [qty, setQty] = useState(1);
 
   const addToCartHandler = () => {
-    console.log("add to cart", match.params.id);
+    // console.log(history);
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
 
   return (
@@ -59,7 +60,7 @@ const ProductScreen = ({ match }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Error variant="danger" error={error} />
+        <Message variant="danger">{error}</Message>
       ) : (
         <Row>
           <Col md={6}>
@@ -134,6 +135,7 @@ const ProductScreen = ({ match }) => {
                 )}
                 <ListGroup.Item>
                   <Button
+                    onClick={addToCartHandler}
                     className="btn-block"
                     type="button"
                     disabled={product.countInStock === 0}

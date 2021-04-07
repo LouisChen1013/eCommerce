@@ -4,7 +4,7 @@ import { Row, Col } from "react-bootstrap";
 import Product from "../components/Product";
 import { listProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
-import Error from "../components/Error";
+import Message from "../components/Message";
 
 // import axios from "axios
 // import products from "../products";
@@ -45,7 +45,7 @@ const HomeScreen = () => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Error variant="danger" error={error} />
+        <Message variant="danger">{error}</Message>
       ) : (
         <Row>
           {products.map((product) => (
