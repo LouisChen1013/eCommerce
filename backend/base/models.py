@@ -16,7 +16,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
     countInStock = models.IntegerField(null=True, blank=True, default=0)
     creactedAt = models.DateTimeField(auto_now_add=True)
-    _id = models.AutoField(primary_key=True, editable=False) # overwrite the default id(pk) that is created by django
+    _id = models.AutoField(primary_key=True, editable=False) # django has the id field by default. However, we have/use the _id field in our frontend, so we create the _id(as pk) field(backend) to match our frontend.
 
     def __str__(self):
         return self.name

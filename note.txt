@@ -8,4 +8,5 @@ django-admin startapp base / python3 manage.py startapp base
 pip3 install django-cors-headers # this allow us to connect our backend api to our frondend react https://pypi.org/project/django-cors-headers/
 python3 manage.py createsuperuser
 python3 manage.py makemigrations # run after we create/update our classes/schema (e.g., Product) in models
-pip3 install Pillow
+pip3 install Pillow # image process library
+pip3install djangorestframework-simplejwt
