@@ -6,19 +6,27 @@ import {
   productDetailsReducer,
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
+import { userLoginReducer, userRegisterReducer } from "./reducers/userReducers";
 
 const reducer = combineReducers({
   productListReducer,
   productDetailsReducer,
   cartReducer,
+  userLoginReducer,
+  userRegisterReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))
   : []; // since our localStorage value is string, we have to convert back to a javascript object
 
+const userInfoFromStorage = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : null;
+
 const initialState = {
   cartReducer: { cartItems: cartItemsFromStorage },
+  userLoginReducer: { userInfo: userInfoFromStorage },
 };
 
 const middleware = [thunk];

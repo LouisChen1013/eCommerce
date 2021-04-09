@@ -77,5 +77,6 @@ def registerUser(request):
         return Response(serializer.data)
     # https://www.django-rest-framework.org/api-guide/status-codes/
     except:
+        # this error 'detail' will send to our frontend payload
         message = {"detail":"User with this email already exists"}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
