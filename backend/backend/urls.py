@@ -20,7 +20,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('base.urls')), # dispatch any url and send to urls.py (module) in the base folder
+    path('api/', include('base.urls.urls')), # dispatch any url and send to urls.py (module) in the base folder
+    # Separate our logic by category 
+    path('api/products/', include('base.urls.product_urls')),
+    path('api/users/', include('base.urls.user_urls')),
+    path('api/orders/', include('base.urls.order_urls')),
 ]
 
 # https://docs.djangoproject.com/en/3.1/howto/static-files/#serving-files-uploaded-by-a-user-during-development
