@@ -55,6 +55,27 @@ def getUserProfile(request):
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
 
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUserProfile(request): 
+    user = request.user # old user profile
+    # we want to return a new token with our updated user
+    serializer = UserSerializerWithToken(user, many=False)
+    
+    # request.data returns the parsed content of the request body.
+    data = request.data # new user profile obtained from frontend
+
+    user.first_name = data['name']
+    user.username = data['email'] # we set our username = email as before
+    user.email = data['email']
+
+    if data['password'] != "":
+        user.password = make_password(data['password'])
+
+    user.save()
+
+    return Response(serializer.data)
+
 @api_view(['GET'])
 @permission_classes([IsAdminUser])
 def getUsers(request):
@@ -78,5 +99,5 @@ def registerUser(request):
     # https://www.django-rest-framework.org/api-guide/status-codes/
     except:
         # this error 'detail' will send to our frontend payload
-        message = {"detail":"User with this email already exists"}
+        message = {'detail':'User with this email already exists'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)

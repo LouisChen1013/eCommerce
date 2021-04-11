@@ -10,7 +10,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 # https://docs.djangoproject.com/en/3.1/ref/contrib/auth/
 class UserSerializer(serializers.ModelSerializer):
-    name = serializers.SerializerMethodField(read_only=True) # SerializerMethodField gets its value by calling a method on the serializer class it is attached to.
+    name = serializers.SerializerMethodField(read_only=True) # SerializerMethodField gets its value by calling a method on the serializer class it is attached to. In our case, we call get_name func to get the name value
     _id = serializers.SerializerMethodField(read_only=True) # we use our own _id field here
     isAdmin = serializers.SerializerMethodField(read_only=True)
     class Meta:
@@ -31,7 +31,7 @@ class UserSerializer(serializers.ModelSerializer):
     def get_isAdmin(self,obj):
         return obj.is_staff
 
-# To obtain a brand new token when user updates/registers his info
+# When a user updates/registers his info, we generate a new token to keep the user authenticated
 class UserSerializerWithToken(UserSerializer):
     token = serializers.SerializerMethodField(read_only=True)
     class Meta:
@@ -41,4 +41,3 @@ class UserSerializerWithToken(UserSerializer):
     def get_token(self, obj):
         token = RefreshToken.for_user(obj)
         return str(token.access_token)
-
