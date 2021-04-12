@@ -12,7 +12,7 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
-  USER_UPDATE_PROFILE_RESET,
+  USER_DETAILS_RESET,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -54,6 +54,7 @@ export const login = (email, password) => async (dispatch) => {
 export const logout = () => (dispatch) => {
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
+  dispatch({ type: USER_DETAILS_RESET }); // clean our user details after logout
 };
 
 export const register = (name, email, password) => async (
@@ -122,7 +123,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/users/${id}`, config); //id here is equal to 'profile', but we have passed the token to get the user data
+    const { data } = await axios.get(`/api/users/${id}/`, config); //id here is equal to 'profile', but we have passed the token to get the user data
 
     dispatch({
       type: USER_DETAILS_SUCCESS,
@@ -157,7 +158,11 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.put(`/api/users/profile/update`, user, config); // we pass in our user object(from the parameter) to update the new user info
+    const { data } = await axios.put(
+      `/api/users/profile/update/`,
+      user,
+      config
+    ); // we pass in our user object(from the parameter) to update the new user info
 
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,

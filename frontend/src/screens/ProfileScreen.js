@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -30,9 +30,9 @@ const ProfileScreen = ({ history }) => {
     if (!userInfo) {
       history.push("/login");
     } else {
-      // check if a user info has been loaded
+      // check if a user info has been loaded or performed an update on his profile. It will ensure our user details are up-to-date
       if (!user || !user.name || success) {
-        dispatch({ type: USER_UPDATE_PROFILE_RESET });
+        dispatch({ type: USER_UPDATE_PROFILE_RESET }); // reset user profile then get new user details below
         dispatch(getUserDetails("profile"));
       } else {
         setName(user.name);
