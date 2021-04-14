@@ -4,9 +4,15 @@ import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
+import { createOrder } from "../actions/orderActions";
+import { ORDER_CREATE_RESET } from "../constants/orderConstants";
 
-const PlaceOrderScreen = () => {
+const PlaceOrderScreen = ({ history }) => {
+  const orderCreate = useSelector((state) => state.orderCreateReducer);
+  const { order, error, success } = orderCreate;
+
   const cart = useSelector((state) => state.cartReducer);
+  const dispatch = useDispatch();
 
   cart.itemsPrice = cart.cartItems
     .reduce((acc, cartItem) => acc + cartItem.price * cartItem.qty, 0)
@@ -22,9 +28,34 @@ const PlaceOrderScreen = () => {
     Number(cart.taxPrice)
   ).toFixed(2);
 
+  if (!cart.paymentMethod) {
+    history.push("/payment");
+  }
+
+  useEffect(() => {
+    if (success) {
+      history.push(`/order/${order._id}`);
+      // reset the order info once we completed the order
+      dispatch({
+        type: ORDER_CREATE_RESET,
+      });
+    }
+  }, [success, history]);
+
   const placeOrder = () => {
-    console.log("www");
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.ItemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    );
   };
+
   return (
     <div>
       <CheckoutSteps step1 step2 step3 step4 />
@@ -57,7 +88,7 @@ const PlaceOrderScreen = () => {
                   {cart.cartItems.map((cartItem, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
-                        <Col md={1}>
+                        <Col md={2}>
                           <Image
                             src={cartItem.image}
                             alt={cartItem.name}
@@ -65,12 +96,12 @@ const PlaceOrderScreen = () => {
                             rounded
                           />
                         </Col>
-                        <Col>
+                        <Col className="my-auto">
                           <Link to={`/product/${cartItem.product}`}>
                             {cartItem.name}
                           </Link>
                         </Col>
-                        <Col md={4}>
+                        <Col md={4} className="my-auto">
                           {cartItem.qty} X ${cartItem.price} = $
                           {(cartItem.qty * cartItem.price).toFixed(2)}
                         </Col>
@@ -111,6 +142,10 @@ const PlaceOrderScreen = () => {
                   <Col>Total:</Col>
                   <Col>${cart.totalPrice}</Col>
                 </Row>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                {error && <Message variant="danger">{error}</Message>}
               </ListGroup.Item>
 
               <ListGroup.Item>
