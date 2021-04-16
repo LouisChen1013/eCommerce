@@ -14,6 +14,7 @@ import {
   USER_UPDATE_PROFILE_FAIL,
   USER_DETAILS_RESET,
 } from "../constants/userConstants";
+import { ORDER_LIST_MY_RESET } from "../constants/orderConstants";
 import axios from "axios";
 
 export const login = (email, password) => async (dispatch) => {
@@ -55,6 +56,7 @@ export const logout = () => (dispatch) => {
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAILS_RESET }); // clean our user details after logout
+  dispatch({ type: ORDER_LIST_MY_RESET }); // clean our user orders after logout
 };
 
 export const register = (name, email, password) => async (
@@ -123,7 +125,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/users/${id}/`, config); //id here is equal to 'profile', but we have passed the token to get the user data
+    const { data } = await axios.get(`/api/users/${id}/`, config); //id here is equal to 'profile', and we have to pass the token to get the user data
 
     dispatch({
       type: USER_DETAILS_SUCCESS,

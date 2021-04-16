@@ -23,6 +23,7 @@ from rest_framework.decorators import api_view, permission_classes
 @api_view(['GET'])
 def getRoutes(request):
     routes = [
+        "/admin/"
         "/api/products",
         "/api/products/create/",
         "/api/products/upload/",
@@ -31,10 +32,15 @@ def getRoutes(request):
         "/api/products/<id>/",
         "/api/products/delete/<id>/",
         "/api/products/<update>/<id>/",
-        "/admin/"
-        "/api/users/login/"
-        "/api/users/profile/"
         "/api/users"
         "/api/users/register/"
+        "/api/users/login/"
+        "/api/users/profile/"
+        "/api/users/profile/update/"
+        "/api/orders/add/"
+        "/api/orders/<id>/"
+        "/api/orders/<id>/pay/"
+        "/api/orders/myorders/"
+        
     ]
     return Response(routes)

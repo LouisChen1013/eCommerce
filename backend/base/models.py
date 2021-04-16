@@ -52,6 +52,7 @@ class Order(models.Model):
         return str(self.createAt)
 
 class OrderItem(models.Model):
+    # Todo: Maybe change to on_delete = models.cascade
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True) # One order can have many OrderItems (e.g., 2 airpods, 3 mouse, etc)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=200, null=True, blank=True)
