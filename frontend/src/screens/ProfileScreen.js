@@ -37,7 +37,7 @@ const ProfileScreen = ({ history }) => {
       history.push("/login");
     } else {
       // check if a user info has been loaded or performed an update on his profile. It will ensure our user details are up-to-date
-      if (!user || !user.name || success) {
+      if (!user || !user.name || success || userInfo._id !== user._id) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET }); // reset user profile then get new user details below
         dispatch(getUserDetails("profile"));
         dispatch(listMyOrders());
