@@ -4,6 +4,9 @@ import { composeWithDevTools } from "redux-devtools-extension"; // shows a histo
 import {
   productListReducer,
   productDetailsReducer,
+  productDeleteReducer,
+  productCreateReducer,
+  productUpdateReducer,
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
 import {
@@ -37,6 +40,9 @@ const reducer = combineReducers({
   orderListMyReducer,
   userDeleteReducer,
   userUpdateReducer,
+  productDeleteReducer,
+  productCreateReducer,
+  productUpdateReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")
