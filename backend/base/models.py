@@ -15,7 +15,7 @@ class Product(models.Model):
     numReviews = models.IntegerField(null=True, blank=True, default=0)
     price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
     countInStock = models.IntegerField(null=True, blank=True, default=0)
-    creactedAt = models.DateTimeField(auto_now_add=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
     _id = models.AutoField(primary_key=True, editable=False) # django has the id field by default. However, we have/use the _id field in our frontend, so we create the _id(as pk) field(backend) to match our frontend.
 
     def __str__(self):
@@ -27,7 +27,7 @@ class Review(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
     rating = models.IntegerField(null=True, blank=True, default=0)
     comment = models.TextField(null=True, blank=True)
-    createAt = models.DateTimeField(auto_now_add=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
     _id = models.AutoField(primary_key=True, editable=False)
 
 
@@ -44,8 +44,8 @@ class Order(models.Model):
     isPaid = models.BooleanField(default=False)
     paidAt = models.DateTimeField(auto_now_add=False, null=True, blank=True)
     isDelivered =  models.BooleanField(default=False)
-    deliverdAt = models.DateTimeField(auto_now_add=False, null=True, blank=True)
-    createAt = models.DateTimeField(auto_now_add=True)
+    deliveredAt = models.DateTimeField(auto_now_add=False, null=True, blank=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
     _id = models.AutoField(primary_key=True, editable=False)
 
     def __str__(self):

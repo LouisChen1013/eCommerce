@@ -4,12 +4,19 @@ import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { getOrderDetails, payOrder } from "../actions/orderActions";
+import {
+  getOrderDetails,
+  payOrder,
+  deliverOrder,
+} from "../actions/orderActions";
 import moment from "moment";
 import { PayPalButton } from "react-paypal-button-v2";
-import { ORDER_PAY_RESET } from "../constants/orderConstants";
+import {
+  ORDER_PAY_RESET,
+  ORDER_DELIVER_RESET,
+} from "../constants/orderConstants";
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id;
   const dispatch = useDispatch();
   const orderDetails = useSelector((state) => state.orderDetailsReducer);
@@ -18,6 +25,12 @@ const OrderScreen = ({ match }) => {
   const orderPay = useSelector((state) => state.orderPayReducer);
   // since we already have loading declared before, we named as loadingPay here
   const { loading: loadingPay, success: successPay } = orderPay;
+
+  const orderDeliver = useSelector((state) => state.orderDeliverReducer);
+  const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
+
+  const userLogin = useSelector((state) => state.userLoginReducer);
+  const { userInfo } = userLogin;
 
   const [sdkReady, setSdkReady] = useState(false);
 
@@ -40,9 +53,21 @@ const OrderScreen = ({ match }) => {
   };
 
   useEffect(() => {
-    if (!order || successPay || order._id !== Number(orderId)) {
+    if (!userInfo) {
+      history.push("/login");
+    }
+
+    if (
+      !order ||
+      successPay ||
+      order._id !== Number(orderId) ||
+      successDeliver
+    ) {
       dispatch({
         type: ORDER_PAY_RESET,
+      });
+      dispatch({
+        type: ORDER_DELIVER_RESET,
       });
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
@@ -52,10 +77,14 @@ const OrderScreen = ({ match }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, orderId, successPay]);
+  }, [dispatch, order, orderId, successPay, successDeliver]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult));
+  };
+
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order)); // order object from orderDetails above
   };
 
   return loading ? (
@@ -88,7 +117,7 @@ const OrderScreen = ({ match }) => {
               {order.isDelivered ? (
                 <Message variant="success">
                   Your order has been delivered on{" "}
-                  {moment(order.paidAt).format("MMMM Do YYYY")}
+                  {moment(order.deliveredAt).format("MMMM Do YYYY")}
                 </Message>
               ) : (
                 <Message variant="warning">Not Delivered</Message>
@@ -189,6 +218,21 @@ const OrderScreen = ({ match }) => {
                 </ListGroup.Item>
               )}
             </ListGroup>
+            {loadingDeliver && <Loader />}
+            {userInfo &&
+              userInfo.isAdmin &&
+              order.isPaid &&
+              !order.isDelivered && (
+                <ListGroup.Item>
+                  <Button
+                    type="button"
+                    className="btn btn-block"
+                    onClick={deliverHandler}
+                  >
+                    Mark As Deliver
+                  </Button>
+                </ListGroup.Item>
+              )}
           </Card>
         </Col>
       </Row>

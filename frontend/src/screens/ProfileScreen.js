@@ -40,11 +40,12 @@ const ProfileScreen = ({ history }) => {
       if (!user || !user.name || success || userInfo._id !== user._id) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET }); // reset user profile then get new user details below
         dispatch(getUserDetails("profile"));
-        dispatch(listMyOrders());
+        // dispatch(listMyOrders());
       } else {
         setName(user.name);
         setEmail(user.email);
       }
+      dispatch(listMyOrders());
     }
   }, [dispatch, history, userInfo, user, success]);
 
@@ -150,7 +151,7 @@ const ProfileScreen = ({ history }) => {
               {orders.map((order) => (
                 <tr key={order._id}>
                   <td>{order._id}</td>
-                  <td>{moment(order.createAt).format("MMMM Do YYYY")}</td>
+                  <td>{moment(order.createdAt).format("MMMM Do YYYY")}</td>
                   <td>${order.totalPrice}</td>
                   <td>
                     {order.isPaid ? (
@@ -159,7 +160,13 @@ const ProfileScreen = ({ history }) => {
                       <i className="fas fa-times" style={{ color: "red" }}></i>
                     )}
                   </td>
-                  <td>{order.isDelivered}</td>
+                  <td>
+                    {order.isDelivered ? (
+                      moment(order.deliveredAt).format("MMMM Do YYYY")
+                    ) : (
+                      <i className="fas fa-times" style={{ color: "red" }}></i>
+                    )}
+                  </td>
                   <td>
                     <LinkContainer to={`/order/${order._id}`}>
                       <Button className="btn-sm">Details</Button>
