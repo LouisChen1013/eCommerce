@@ -25,6 +25,7 @@ import {
   USER_UPDATE_FAIL,
 } from "../constants/userConstants";
 import { ORDER_LIST_MY_RESET } from "../constants/orderConstants";
+import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
 import axios from "axios";
 
 export const login = (email, password) => async (dispatch) => {
@@ -68,6 +69,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_DETAILS_RESET }); // clean our user details after logout
   dispatch({ type: ORDER_LIST_MY_RESET }); // clean our user orders after logout
   dispatch({ type: USER_LIST_RESET }); // clean our user list after logout
+  dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
 };
 
 export const register = (name, email, password) => async (
@@ -136,7 +138,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/users/${id}/`, config); //id here is equal to 'profile', and we have to pass the token to get the user data
+    const { data } = await axios.get(`/api/users/${id}/`, config); //id here is equal to 'profile' => /api/users/profile/, and we have to pass the token to get the user data
 
     dispatch({
       type: USER_DETAILS_SUCCESS,
