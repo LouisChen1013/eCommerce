@@ -200,11 +200,13 @@ const ProductScreen = ({ match, history }) => {
                 ))}
 
                 <ListGroup.Item>
-                  <h4>Write a review</h4>
+                  <h4>Write a Customer Review</h4>
 
                   {loadingProductReview && <Loader />}
                   {successProductReview && (
-                    <Message variant="success">Review Submitted</Message>
+                    <Message variant="success">
+                      Review submitted successfully
+                    </Message>
                   )}
                   {errorProductReview && (
                     <Message variant="danger">{errorProductReview}</Message>

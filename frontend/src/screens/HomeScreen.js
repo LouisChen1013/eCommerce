@@ -9,7 +9,7 @@ import Message from "../components/Message";
 // import axios from "axios
 // import products from "../products";
 
-const HomeScreen = () => {
+const HomeScreen = ({ history }) => {
   /*
   // we have switched local state(useState) to global state(redux)
   const [products, setProducts] = useState([]);
@@ -32,12 +32,15 @@ const HomeScreen = () => {
 
   // const productList = useSelector((state) => console.log(state)); // Get our product list from our store
   const productList = useSelector((state) => state.productListReducer);
-
   const { error, loading, products } = productList;
 
+  // console.log(history);
+  let keyword = history.location.search;
+  // console.log(keyword); // To get our url parameter(..../?search=xxx) after clicking search.
+
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(keyword));
+  }, [dispatch, keyword]);
 
   return (
     <div>
@@ -46,6 +49,8 @@ const HomeScreen = () => {
         <Loader />
       ) : error ? (
         <Message variant="danger">{error}</Message>
+      ) : products.length === 0 ? (
+        <Message variant="info">No matches found</Message>
       ) : (
         <Row>
           {products.map((product) => (

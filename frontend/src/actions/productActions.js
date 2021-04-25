@@ -20,13 +20,13 @@ import {
 } from "../constants/productConstants";
 import axios from "axios";
 
-export const listProducts = () => async (dispatch, getState) => {
+export const listProducts = (keyword = "") => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
 
     // since we only want to get the 'data' attribute in the object, we use the destructuring assignment
     // we also added the proxy to our package.json, we only needed the "/api/products" part
-    const { data } = await axios.get("/api/products/");
+    const { data } = await axios.get(`/api/products/${keyword}`);
 
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
@@ -43,7 +43,7 @@ export const listProducts = () => async (dispatch, getState) => {
   }
 };
 
-export const listProducDetails = (id) => async (dispatch, getState) => {
+export const listProducDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
     const { data } = await axios.get(`/api/products/${id}/`);

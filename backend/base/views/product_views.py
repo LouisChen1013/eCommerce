@@ -11,7 +11,17 @@ from rest_framework import status
 @api_view(['GET'])
 def getProducts(request): 
     # return Response(products) # used for products.py testing
-    products = Product.objects.all()
+    
+    # https://www.django-rest-framework.org/api-guide/requests/#query_params
+    query = request.query_params.get("search") # get the url parameter after ?search=. e.g., ?search=Airpods, query would be Airpods
+
+    if query == None:
+        query = ""
+
+    # products = Product.objects.all() # used for get all the product objects
+
+    # https://docs.djangoproject.com/en/3.2/topics/db/search/
+    products = Product.objects.filter(name__icontains=query)
     serializer = ProductSerializer(products, many=True) # To serialize a queryset or list of objects instead of a single object instance
     return Response(serializer.data)
 
