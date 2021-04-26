@@ -103,6 +103,71 @@ const products = [
     rating: 5,
     numReviews: 88,
   },
+  {
+    _id: "9",
+    name: "Google Nest Thermostat - Snow",
+    image: "/images/nest.jpg",
+    description:
+      "Meet the Google Nest Thermostat, the smart thermostat for home with a cozy price. It can turn itself down to save energy when you leave the house. You can control this programmable thermostat from anywhere with the Google Home app – whether you’re on an errand or in bed.[1] And it’s simple to install yourself, usually in 30 minutes or less.",
+    brand: "Google",
+    category: "Electronics",
+    price: 129.0,
+    countInStock: 21,
+    rating: 4.5,
+    numReviews: 20,
+  },
+  {
+    _id: "10",
+    name: "SAMSUNG T5 Portable SSD 1TB",
+    image: "/images/samsung_t5.jpg",
+    description:
+      "The SAMSUNG T5 Portable SSD has the latest in SAMSUNG V-NAND flash memory technology. Its portable design, blazing fast transfer speeds of up to 540 MB/s, shock resistance, and secure encryption make it the best portable SSD on the market.",
+    brand: "Samsung",
+    category: "Electronics",
+    price: 129.99,
+    countInStock: 4,
+    rating: 5,
+    numReviews: 67,
+  },
+  {
+    _id: "11",
+    name: "Amazon eero mesh WiFi system",
+    image: "/images/amazon_wifi.jpg",
+    description:
+      "eero 6 systems use the power of Wi-Fi 6 to deliver faster speeds, increase your internet’s efficiency, and reduce network congestion. Say goodbye to dead spots and buffering with a connection that doesn’t slow you down, even as you add more devices.",
+    brand: "Amazon",
+    category: "Electronics",
+    price: 169.0,
+    countInStock: 0,
+    rating: 4,
+    numReviews: 57,
+  },
+  {
+    _id: "12",
+    name: "SAMSUNG Galaxy Watch Active 2",
+    image: "/images/samsung_watch.jpg",
+    description:
+      "The SAMSUNG Galaxy Watch Active 2 is designed to help you learn more So you can achieve more. It goes beyond tracking steps And calories to offer actionable insights on everything from your running style to your heart rate. Connect seamlessly via Bluetooth to your favorite apps so you can keep moving and a sleek, all-new design means you can wear the Galaxy Watch Active 2 everywhere from the gym to the pool to your bed.",
+    brand: "Samsung",
+    category: "Electronics",
+    price: 199.99,
+    countInStock: 66,
+    rating: 3.5,
+    numReviews: 12,
+  },
+  {
+    _id: "13",
+    name: "Razer Blade 15 Base Gaming Laptop 2020",
+    image: "/images/razer_laptop.jpg",
+    description:
+      'The new Razer Blade 15 is an ultra-compact NVIDIA GeForce powered laptop that features the latest 10th Gen Intel Core i7 6-core processor, to deliver amazing performance and portability. The 15.6" 120Hz thin bezel Full HD display provides an immersive and insanely fast visual experience for gaming and beyond.',
+    brand: "Razer",
+    category: "Electronics",
+    price: 1199.99,
+    countInStock: 2,
+    rating: 4.5,
+    numReviews: 28,
+  },
 ];
 
 export default products;
