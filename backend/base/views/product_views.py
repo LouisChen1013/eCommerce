@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from base.models import Product, Review
 from base.serializers import ProductSerializer
 from rest_framework import status
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @api_view(['GET'])
@@ -22,8 +23,26 @@ def getProducts(request):
 
     # https://docs.djangoproject.com/en/3.2/topics/db/search/
     products = Product.objects.filter(name__icontains=query)
+
+    page = request.query_params.get("page")
+    # https://docs.djangoproject.com/en/3.2/topics/pagination/
+    paginator = Paginator(products, 8)
+
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        # num_pages give you total pages
+        products = paginator.page(paginator.num_pages)
+    
+    if page == None:
+        page = 1
+
+    page = int(page)
+
     serializer = ProductSerializer(products, many=True) # To serialize a queryset or list of objects instead of a single object instance
-    return Response(serializer.data)
+    return Response({"products":serializer.data, "page":page, "pages":paginator.num_pages})
 
 @api_view(['GET'])
 def getProduct(request, pk):

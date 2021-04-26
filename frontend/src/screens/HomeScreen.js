@@ -5,6 +5,7 @@ import Product from "../components/Product";
 import { listProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Paginate from "../components/Paginate";
 
 // import axios from "axios
 // import products from "../products";
@@ -32,7 +33,7 @@ const HomeScreen = ({ history }) => {
 
   // const productList = useSelector((state) => console.log(state)); // Get our product list from our store
   const productList = useSelector((state) => state.productListReducer);
-  const { error, loading, products } = productList;
+  const { error, loading, products, page, pages } = productList;
 
   // console.log(history);
   let keyword = history.location.search;
@@ -52,13 +53,16 @@ const HomeScreen = ({ history }) => {
       ) : products.length === 0 ? (
         <Message variant="info">No matches found</Message>
       ) : (
-        <Row>
-          {products.map((product) => (
-            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-              <Product product={product} />
-            </Col>
-          ))}
-        </Row>
+        <div>
+          <Row>
+            {products.map((product) => (
+              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                <Product product={product} />
+              </Col>
+            ))}
+          </Row>
+          <Paginate page={page} pages={pages} keyword={keyword} />
+        </div>
       )}
     </div>
   );

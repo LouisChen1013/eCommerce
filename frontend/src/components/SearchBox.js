@@ -9,7 +9,7 @@ const SearchBox = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
-      history.push(`/?search=${keyword}`);
+      history.push(`/?search=${keyword}&page=1`); //when creating a new search, we start at the first page
     } else {
       history.push(history.location.pathname);
     }
