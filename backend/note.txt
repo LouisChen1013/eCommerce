@@ -1,0 +1,20 @@
+python:
+python3 -m venv myenv
+source myenv/bin/activate
+pip3 install django
+django-admin startproject backend
+python3 manage.py runserver
+django-admin startapp base / python3 manage.py startapp base
+pip3 install django-cors-headers # this allow us to connect our backend api to our frondend react https://pypi.org/project/django-cors-headers/
+python3 manage.py createsuperuser
+python3 manage.py makemigrations # run after we create/update our classes/schema (e.g., Product) in models
+python3 manage.py migrate
+pip3 install Pillow # image process library
+pip3 install djangorestframework-simplejwt
+pip3 install psycopg2-binary # Psycopg is a PostgreSQL database adapter for python
+pip3 install boto3 # To connect to our AWS S3 bucket. https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
+pip3 install django-storages # To connect to our AWS S3 bucket
+python3 manage.py collectstatic # a command for gathering static files in a single directory. This will copy all files from your static folders into the STATIC_ROOT directory.
+pip3 install whitenoise # http://whitenoise.evans.io/en/stable/
+pip3 install gunicorn
+pip3 freeze > requirements.txt # create a txt file that included our packages
