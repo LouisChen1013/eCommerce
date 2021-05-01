@@ -87,7 +87,7 @@ SIMPLE_JWT = {
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -130,28 +130,28 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # }
 
 # local postgres database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv('DB_NAME'),
-#         'USER':os.getenv('LOCAL_DB_USER'),
-#         'PASSWORD':os.getenv('LOCAL_DB_PASSWORD'),
-#         'HOST':'localhost',
-#         'PORT':'5432'
-#     }
-# }
-
-# aws postgres database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('DB_NAME'),
-        'USER':os.getenv('AWS_DB_USER'),
-        'PASSWORD':os.getenv('AWS_DB_PASSWORD'),
-        'HOST':'demoshop-identifier.ccks3z38pnd8.us-west-2.rds.amazonaws.com',
+        'USER':os.getenv('LOCAL_DB_USER'),
+        'PASSWORD':os.getenv('LOCAL_DB_PASSWORD'),
+        'HOST':'localhost',
         'PORT':'5432'
     }
 }
+
+# aws postgres database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('DB_NAME'),
+#         'USER':os.getenv('AWS_DB_USER'),
+#         'PASSWORD':os.getenv('AWS_DB_PASSWORD'),
+#         'HOST':'demoshop-identifier.ccks3z38pnd8.us-west-2.rds.amazonaws.com',
+#         'PORT':'5432'
+#     }
+# }
 
 
 
