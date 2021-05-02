@@ -6,7 +6,7 @@ Demoshop is an eCommerce web application built with React on the frontend and Dj
 
 **_Note: Please create paypal sandbox if you want to test the payment process_**
 
-Live Demo can be view at <https://demoshop-c.herokuapp.com/>!
+Live Demo can be view at <https://demoshop-c.herokuapp.com/>
 
 ###### Key Features:
 
